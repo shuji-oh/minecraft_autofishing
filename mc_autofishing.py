@@ -43,6 +43,7 @@ while True:
         mouse.click(Button.right, 1)
         time.sleep(2)
         mouse.click(Button.right, 1)
+        time.sleep(2)
         suspicious_counter = 0
  
     #cv2.imshow('test', img)
