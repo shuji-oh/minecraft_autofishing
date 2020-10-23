@@ -8,7 +8,7 @@ HEIGHT=1000
 
 video = cv2.VideoCapture(f'ximagesrc xid={WINDOW_ID} ! videoconvert ! videoscale ! video/x-raw,width={WIDTH},height={HEIGHT} ! appsink')
 
-df = pd.read_csv('output.csv', sep=',', encoding='utf-8', index_col=False, header=None)
+df = pd.read_csv('summary_output.csv', sep=',', encoding='utf-8', index_col=False, header=None)
 list = df.values.tolist()
 
 suspicious_counter = 0
@@ -38,7 +38,7 @@ while True:
     else :
         suspicious_counter = 0
 
-    if suspicious_counter >= 13:
+    if suspicious_counter >= 10:
         print("fishing.")
         mouse.click(Button.right, 1)
         time.sleep(2)
