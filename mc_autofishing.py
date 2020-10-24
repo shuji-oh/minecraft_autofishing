@@ -1,8 +1,9 @@
 import cv2,csv,time
 import pandas as pd
 from pynput.mouse import Button, Controller 
+import slackweb
 
-WINDOW_ID = '0x4200009'  # minecraftのwindowのID, ``xwininfo | grep 'Window id'``
+WINDOW_ID = '0x1c00009'  # minecraftのwindowのID, ``xwininfo | grep 'Window id'``
 WIDTH=1000
 HEIGHT=1000
 
@@ -14,6 +15,9 @@ list = df.values.tolist()
 suspicious_counter = 0
 
 mouse = Controller()
+
+start_time = time.time()
+slack = slackweb.Slack(url="")
 
 while True:
     ok, img = video.read()
@@ -45,5 +49,11 @@ while True:
         mouse.click(Button.right, 1)
         time.sleep(2)
         suspicious_counter = 0
+
+    # after 30 minutes form the script execution, nofice the player.
+    now_time = time.time()
+    if now_time - start_time >= 1800:
+        slack.notify(text="You will be killed by Phantoms! Sleep right now!")
+        start_time = time.time()
  
     #cv2.imshow('test', img)
